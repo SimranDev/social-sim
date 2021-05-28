@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   AiOutlineEllipsis,
@@ -5,56 +6,81 @@ import {
   AiOutlineShareAlt,
   AiOutlineComment,
 } from "react-icons/ai";
+import { connect } from "react-redux";
+import { getArticlesAPI } from "../actions";
+import ReactPlayer from "react-player";
 
 const Post = (props) => {
+  useEffect(() => {
+    props.getArticles();
+  }, []);
+
   return (
-    <Container>
-      <Head>
-        <img src="/images/avatar.svg" />
-        <Detail>
-          <h1>Name</h1>
-          <p>email@gmail.com</p>
-          <p>5d ago</p>
-        </Detail>
-        <AiOutlineEllipsis />
-      </Head>
-      <Message>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-          tempor turpis a libero faucibus viverra. Integer lacinia efficitur
-          enim a viverra. Duis a lorem ultricies, finibus purus sed, hendrerit
-          arcu. Suspendisse imperdiet semper elit, sit amet volutpat libero
-          venenatis eget. Aliquam auctor turpis id neque placerat auctor. Sed at
-          pharetra tortor. Aliquam vel suscipit nibh, vel tempus arcu. Cras
-          suscipit, sem ut venenatis faucibus, tortor erat semper erat, sed
-          efficitur sapien lectus ut nisl. Maecenas ac nulla sem. Maecenas vitae
-          venenatis quam, aliquam mattis nisl. Etiam sollicitudin euismod mi, ac
-          rhoncus metus tristique ut. Fusce vitae enim ac velit sollicitudin
-          imperdiet. Integer libero tortor, ultricies et pretium at, imperdiet
-          quis mi.
-        </p>
-      </Message>
-      <Photo>
-        <img src="https://miro.medium.com/max/1096/1*Y8vXN1mJeEHyXWJtFICjiQ.jpeg" />
-      </Photo>
-      <Divider />
-      <Buttons>
-        <button>
-          <AiOutlineLike /> <h1>Like</h1>
-          <p>12</p>
-        </button>
-        <button>
-          <AiOutlineComment /> <h1>Comment</h1>
-        </button>
-        <button>
-          <AiOutlineShareAlt /> <h1>Share</h1>
-        </button>
-      </Buttons>
-    </Container>
+    <>
+      {props.loading ? (
+        <img
+          src="images/spinner.svg"
+          style={{ width: "100%", borderRadius: "25px", height: "40px" }}
+        />
+      ) : (
+        <>
+          {props.articles.length > 0 &&
+            props.articles.map((article, key) => (
+              <Container key={key}>
+                <Head>
+                  <img src={article.actor.image} />
+                  <Detail>
+                    <h1>{article.actor.title}</h1>
+                    <p>{article.actor.email}</p>
+                    <p>{article.actor.date.toDate().toLocaleDateString()}</p>
+                  </Detail>
+                  <AiOutlineEllipsis />
+                </Head>
+                <Message>
+                  <p>{article.description} </p>
+                </Message>
+                <Photo>
+                  {!article.sharedImg && article.video ? (
+                    <ReactPlayer width={"100%"} url={article.video} />
+                  ) : (
+                    <img src={article.sharedImg} />
+                  )}
+                  }
+                </Photo>
+                <Divider />
+                <Buttons>
+                  <button>
+                    <AiOutlineLike /> <h1>Like</h1>
+                    <p>{article.likes}</p>
+                  </button>
+                  <button>
+                    <AiOutlineComment /> <h1>Comment</h1>
+                  </button>
+                  <button>
+                    <AiOutlineShareAlt /> <h1>Share</h1>
+                  </button>
+                </Buttons>
+              </Container>
+            ))}
+        </>
+      )}
+    </>
   );
 };
 
-export default Post;
+const mapStateToProps = (state) => {
+  return {
+    loading: state.articleState.loading,
+    user: state.userState.user,
+    articles: state.articleState.articles,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getArticles: () => dispatch(getArticlesAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
 
 const Container = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);

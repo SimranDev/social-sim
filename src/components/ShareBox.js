@@ -22,7 +22,9 @@ const ShareBox = (props) => {
         ) : (
           <img src="/images/avatar.svg" />
         )}
-        <button onClick={handleClick}>Write a post</button>
+        <button onClick={handleClick} disabled={props.loading ? true : false}>
+          Write a post
+        </button>
       </InputContainer>
       <Options>
         <Option>
@@ -59,7 +61,6 @@ const Container = styled.div`
   justify-content: space-evenly;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
   width: auto;
-  /* height: 100px; */
   margin: 10px;
   padding: 10px;
   border-radius: 8px;
