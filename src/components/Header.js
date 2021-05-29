@@ -34,7 +34,7 @@ const Header = (props) => {
               </a>
               <a href="/#">
                 <AiFillMessage />
-                <span>Messages</span>
+                <span>Chatbox</span>
               </a>
               <a href="/#">
                 <FaUserFriends />
