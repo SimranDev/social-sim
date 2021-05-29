@@ -65,9 +65,9 @@ const PostModal = (props) => {
             <Body>
               <BodyHead>
                 {props.user.photoURL ? (
-                  <img src={props.user.photoURL} />
+                  <img src={props.user.photoURL} alt="" />
                 ) : (
-                  <img src="/images/avatar.svg" />
+                  <img src="/images/avatar.svg" alt="" />
                 )}
                 <h1>{props.user.displayName}</h1>
               </BodyHead>
@@ -91,7 +91,9 @@ const PostModal = (props) => {
                   <p>
                     <label htmlFor="file">Upload an image</label>
                   </p>
-                  {shareImg && <img src={URL.createObjectURL(shareImg)} />}
+                  {shareImg && (
+                    <img src={URL.createObjectURL(shareImg)} alt="" />
+                  )}
                 </UploadImg>
               ) : assetArea === "video" ? (
                 <>
@@ -116,15 +118,17 @@ const PostModal = (props) => {
                 <img
                   src="images/photo.svg"
                   onClick={() => switchAssetArea("image")}
+                  alt=""
                 />
                 <img
                   src="images/video.svg"
                   onClick={() => switchAssetArea("video")}
+                  alt=""
                 />
-                <img src="images/link.svg" />
+                <img src="images/link.svg" alt="" />
               </div>
               <PostBtn
-                disabled={textareaText == "" ? true : false}
+                disabled={textareaText === "" ? true : false}
                 onClick={(e) => postArticle(e)}
               >
                 Post

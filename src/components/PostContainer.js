@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import {
   AiOutlineEllipsis,
@@ -11,9 +11,11 @@ import { getArticlesAPI } from "../actions";
 import ReactPlayer from "react-player";
 
 const Post = (props) => {
+  const { getArticles } = props;
+
   useEffect(() => {
-    props.getArticles();
-  }, []);
+    getArticles();
+  }, [getArticles]);
 
   return (
     <>
@@ -21,6 +23,7 @@ const Post = (props) => {
         <img
           src="images/spinner.svg"
           style={{ width: "100%", borderRadius: "25px", height: "40px" }}
+          alt=""
         />
       ) : (
         <>
@@ -28,7 +31,7 @@ const Post = (props) => {
             props.articles.map((article, key) => (
               <Container key={key}>
                 <Head>
-                  <img src={article.actor.image} />
+                  <img src={article.actor.image} alt="" />
                   <Detail>
                     <h1>{article.actor.title}</h1>
                     <p>{article.actor.email}</p>
@@ -43,9 +46,8 @@ const Post = (props) => {
                   {!article.sharedImg && article.video ? (
                     <ReactPlayer width={"100%"} url={article.video} />
                   ) : (
-                    <img src={article.sharedImg} />
+                    <img src={article.sharedImg} alt="" />
                   )}
-                  }
                 </Photo>
                 <Divider />
                 <Buttons>

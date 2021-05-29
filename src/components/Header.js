@@ -28,27 +28,27 @@ const Header = (props) => {
         <Nav>
           <NavListWrap>
             <NavList>
-              <a className="active">
+              <a className="active" href="/#">
                 <AiFillHome />
                 <span>Home</span>
               </a>
-              <a>
+              <a href="/#">
                 <AiFillMessage />
                 <span>Messages</span>
               </a>
-              <a>
+              <a href="/#">
                 <FaUserFriends />
                 <span>Friends</span>
               </a>
-              <a>
+              <a href="/#">
                 <AiFillCode />
                 <span>Extras</span>
               </a>
-              <a>
+              <a href="/#">
                 {props.user && props.user.photoURL ? (
-                  <img src={props.user.photoURL} />
+                  <img src={props.user.photoURL} alt=""/>
                 ) : (
-                  <img src="/images/avatar.svg" />
+                  <img src="/images/avatar.svg" alt=""/>
                 )}
                 <div class="user">
                   <span>Me</span>
@@ -231,5 +231,3 @@ const NavList = styled.li`
     }
   }
 `;
-
-const User = styled(NavList)``;

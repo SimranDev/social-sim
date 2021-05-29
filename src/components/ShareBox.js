@@ -18,9 +18,9 @@ const ShareBox = (props) => {
     <Container>
       <InputContainer>
         {props.user && props.user.photoURL ? (
-          <img src={props.user.photoURL} />
+          <img src={props.user.photoURL} alt="" />
         ) : (
-          <img src="/images/avatar.svg" />
+          <img src="/images/avatar.svg" alt="" />
         )}
         <button onClick={handleClick} disabled={props.loading ? true : false}>
           Write a post
@@ -28,15 +28,15 @@ const ShareBox = (props) => {
       </InputContainer>
       <Options>
         <Option>
-          <img src="/images/photo.svg" />
+          <img src="/images/photo.svg" alt="" />
           <h3>Photo</h3>
         </Option>
         <Option>
-          <img src="/images/video.svg" />
+          <img src="/images/video.svg" alt="" />
           <h3>Video</h3>
         </Option>
         <Option>
-          <img src="/images/link.svg" />
+          <img src="/images/link.svg" alt="" />
           <h3>Link</h3>
         </Option>
       </Options>

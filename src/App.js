@@ -8,9 +8,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 
 function App(props) {
+  const { getUserAuth } = props;
+
   useEffect(() => {
-    props.getUserAuth();
-  }, []);
+    getUserAuth();
+  }, [getUserAuth]);
 
   return (
     <div className="App">
